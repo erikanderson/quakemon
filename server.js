@@ -6,11 +6,12 @@ var BodyParser = require('body-parser');
 var Session  = require('express-session');
 var Mongoose = require('mongoose');
 var Config = require('./config');
+var Morgan = require('morgan');
 
 //controllers
 
 
-var userCtrl = require('./server-assets/controllers/user-control');
+var userCtrl = require('./lib/controllers/user-control');
 
 //middleware
 
@@ -29,14 +30,14 @@ Passport.deserializeUser(function(obj, done){
 
 App.use(Express.static(__dirname + '/public'));
 App.use(BodyParser.json());
-App.use(Session({ secret: config.session_secret }));
+App.use(Session({ secret: Config.session_secret }));
 App.use(Passport.initialize());
 App.use(Passport.session());
 
 
 Passport.use(new GoogleStrategy({
-  clientID: config.google_client_id,
-  clientSecret: config.google_client_secret,
+  clientID: Config.google_client_id,
+  clientSecret: Config.google_client_secret,
   callbackURL: 'http://localhost:8080/auth/google/callback'
 }, function(token, tokenSecret, profile, done){
   userCtrl.updateOrCreate(profile).then(function(results){
@@ -71,10 +72,10 @@ App.put('/api/users/:id', userCtrl.put);
 
 //connections
 
-Mongoose.connect(mongoURI, function(){
-  console.log('Connected to MongoDB at: ' + mongoURI);
+Mongoose.connect(Config.database, function(){
+  console.log('Connected to MongoDB at: ' + Config.database);
 })
 
-App.listen(port, function(){
-  console.log('Now listening on port: ' + port);
+App.listen(Config.port, function(){
+  console.log('Now listening on port: ' + Config.port);
 });
