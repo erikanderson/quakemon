@@ -1,0 +1,16 @@
+{
+  "name": "quakemon",
+  "version": "0.0.0",
+  "homepage": "https://github.com/erikanderson/quakemon",
+  "authors": [
+    "erikanderson <edawebdesign@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
