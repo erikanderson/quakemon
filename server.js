@@ -7,6 +7,7 @@ var Session  = require('express-session');
 var Mongoose = require('mongoose');
 var Config = require('./config');
 var Morgan = require('morgan');
+var Request = require('Request');
 
 //controllers
 
@@ -63,11 +64,39 @@ App.get('/auth/logout', function(req, res){
 })
 
 App.get('/auth/me', function(req, res){
+  console.log('******** /auth/me **********');
   return res.json(req.user);
 });
 
 //endpoints
 App.put('/api/users/:id', userCtrl.put);
+
+
+//testing USGS geojson
+
+var hourlyData;
+counter = 0;
+
+function getHourlyData(){
+  Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson', function(error, response, body){
+    // console.log('served request at ', Date.now());
+    // console.log('/////////// fetched geojson data ////////////');
+    hourlyData = body;
+    // console.log(hourlyData);
+    // console.log('****************************');
+    // console.log('++++++++++ ' + counter + ' ++++++++++++++');
+    counter ++;
+    // return hourlyData;
+  })
+}
+
+getHourlyData();
+
+setInterval(getHourlyData, 20000);
+
+App.get('/api/data', function(req, res){
+    res.send(hourlyData);
+})
 
 
 //connections

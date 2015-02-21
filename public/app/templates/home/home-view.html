@@ -1,1 +1,30 @@
-{{test}}
+<h3 class="title">{{headerData.title}}</h3>
+<div class="update">Last updated at: {{updateTime | date: 'medium'}}</div>
+<!-- <div class="selectData col-md-5">
+  <select ng-model="selectedOption" ng-init="selectedOption = values[0]" class="form-control" ng-options="item.subItem as item.label for item in values track by item.id">
+  </select>
+</div> -->
+<table class="table">
+  <thead>
+    <th>Time</th>
+    <th>Magnitude</th>
+    <th>Location</th>
+    <th>Depth</th>
+    <th>Lat/Long</th>
+    <th>Detail</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="earthquake in earthquakes">
+      <td>{{earthquake.properties.time | date: 'mediumTime'}}</td>
+      <td>{{earthquake.properties.mag}}</td>
+      <td>{{earthquake.properties.place}}</td>
+      <td>{{earthquake.geometry.coordinates[2]}} Miles</td>
+      <td><a href="https://www.google.com/maps/@{{earthquake.geometry.coordinates[1]}},{{earthquake.geometry.coordinates[0]}},3809m/data=!3m1!1e3">{{earthquake.geometry.coordinates[1]}}, {{earthquake.geometry.coordinates[0]}}</a></td>
+      <td><a href={{earthquake.properties.url}} target='_blank'>USGS Detail</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="sourceInfo">
+  <p>Info provided by <a href="http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank">USGS</a></p>
+</div>

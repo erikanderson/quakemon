@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+   <meta charset="UTF-8">
+
+   <link rel="stylesheet" href="assets/libs/bootstrap/dist/css/bootstrap.min.css">
+   <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+   <script src="assets/libs/angular/angular.min.js"></script>
+   <script src="assets/libs/angular-route/angular-route.min.js"></script>
+   <script src="assets/libs/angular-animate/angular-animate.min.js"></script>
+
+   <script src="app/main/app.js"></script>
+   <script src="app/main/main-control.js"></script>
+   <script src="app/services/auth-service.js"></script>
+   
+   <script src="app/templates/dashboard/dashboard-control.js"></script>
+   <script src="app/templates/home/home-control.js"></script>
+
+   <script src="app/templates/home/home-service.js"></script>
+   <script src="app/templates/dashboard/dashboard-service.js"></script>
+
+  </head>
+  <body ng-app="quakemon" ng-controller="mainCtrl">
+
+    <nav class="navbar navbar-default" id="mainnav">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <span>quakemon</span>
+        </a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li>{{main.user._id}}</li>
+        <li><a href="/#/"><i class="fa fa-home"></i>Home</a></li>
+        <li ng-show="!user"><a href="/auth/google"><i class="fa fa-google-plus"></i>Login</a></li>
+        <li ng-show="user"><a href="/#/dashboard">Dashboard</a></li>
+        <li ng-show="user" ng-click="logout()"><a href="">Logout</a></li>
+      </ul>
+    </nav>
+
+    <pre>Current User ID:  {{user._id}}</pre>
+
+  <div class="container">
+    <div ng-view></div>
+  </div>
+  </body>
+</html>
