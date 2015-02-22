@@ -1,7 +1,23 @@
+#title {
+  font-family: 'Francois One', sans-serif;
+  text-decoration: none;
+}
+
 #mainnav {
-  background-color: #ecf0f1;
+  background-color: #2980b9;
   border-radius: 0;
   border: 0px;
-  color: #ecf0f1;
   padding-right: 15px;
+}
+
+.navbar-default .navbar-nav>li>a {
+color: #ECEFF1;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+color: #37474F;
+}
+
+.navbar-default .navbar-brand {
+color: #ECEFF1;
 }

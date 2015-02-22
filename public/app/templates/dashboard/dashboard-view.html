@@ -1,14 +1,21 @@
-<h3>User Dashboard</h3>
+ <h3>User Dashboard</h3>
 <pre>{{user}}</pre>
 
-<h4>ZIP Code: {{user.zip}}</h4>
-
-<div class="col-md-6">
-  <form class="form">
-    <div class="form-group">
-      <label>Update ZIP code</label>
-      <input placeholder="Enter New ZIP Code" class="form-control" ng-model="updateZipData">
-    </div>
-    <button class="btn btn-primary" ng-click="updateZip()">Update ZIP</button>
-  </form>
+<div class="row">
+  <div class="col-md-6">
+    <ul class="list-group">
+      <li class="list-group-item">ZIP Code: {{user.zip}}</li>
+      <li class="list-group-item">User Latitude {{user.latitude}}</li>
+      <li class="list-group-item">User Longitude {{user.longitude}}</li>
+    </ul>
+  </div>
+  <div class="col-md-6">
+    <form class="form">
+      <div class="form-group">
+        <label>Update ZIP code</label>
+        <input placeholder="Enter New ZIP Code" class="form-control" ng-model="updateZipData">
+      </div>
+      <button class="btn btn-primary" ng-click="updateZip()">Update ZIP</button>
+    </form>
+  </div>
 </div>

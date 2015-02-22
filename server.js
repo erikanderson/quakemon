@@ -12,6 +12,7 @@ var Request = require('Request');
 //controllers
 
 
+
 var userCtrl = require('./lib/controllers/user-control');
 
 //middleware
@@ -28,13 +29,12 @@ Passport.deserializeUser(function(obj, done){
   })
 });
 
-
 App.use(Express.static(__dirname + '/public'));
 App.use(BodyParser.json());
 App.use(Session({ secret: Config.session_secret }));
 App.use(Passport.initialize());
 App.use(Passport.session());
-
+// App.use(Morgan('dev'));
 
 Passport.use(new GoogleStrategy({
   clientID: Config.google_client_id,
@@ -64,7 +64,7 @@ App.get('/auth/logout', function(req, res){
 })
 
 App.get('/auth/me', function(req, res){
-  console.log('******** /auth/me **********');
+  // console.log('******** /auth/me **********');
   return res.json(req.user);
 });
 
@@ -98,6 +98,12 @@ App.get('/api/data', function(req, res){
     res.send(hourlyData);
 })
 
+//zip testing 
+
+// var Zip = require('./lib/models/zip');
+// Zip.findOne({_id: '07722'}, 'loc', function(err, loc){
+//   console.log('loc: ', loc);
+// });
 
 //connections
 

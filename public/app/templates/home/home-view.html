@@ -11,6 +11,7 @@
     <th>Location</th>
     <th>Depth</th>
     <th>Lat/Long</th>
+    <th ng-show="user">Miles from User Zip</th>
     <th>Detail</th>
   </thead>
   <tbody>
@@ -20,10 +21,13 @@
       <td>{{earthquake.properties.place}}</td>
       <td>{{earthquake.geometry.coordinates[2]}} Miles</td>
       <td><a href="https://www.google.com/maps/@{{earthquake.geometry.coordinates[1]}},{{earthquake.geometry.coordinates[0]}},3809m/data=!3m1!1e3">{{earthquake.geometry.coordinates[1]}}, {{earthquake.geometry.coordinates[0]}}</a></td>
+      <td ng-show="user">{{earthquake.distanceToUser | number}} miles</td>
       <td><a href={{earthquake.properties.url}} target='_blank'>USGS Detail</a></td>
     </tr>
   </tbody>
 </table>
+
+<pre>distance(38.75, -122.73, 33.20, -116)</pre>
 
 <div class="sourceInfo">
   <p>Info provided by <a href="http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank">USGS</a></p>
