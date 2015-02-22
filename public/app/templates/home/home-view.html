@@ -27,7 +27,9 @@
   </tbody>
 </table>
 
-<pre>distance(38.75, -122.73, 33.20, -116)</pre>
+<div ng-show="noQuake" class="alert alert-success" role="alert">{{noQuake}}</div>
+
+<pre>{{user.latitude}} {{user.longitude}}</pre>
 
 <div class="sourceInfo">
   <p>Info provided by <a href="http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank">USGS</a></p>

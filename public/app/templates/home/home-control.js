@@ -7,7 +7,11 @@ app.controller('homeCtrl', function($scope, homeService, authService){
   $scope.getDataLastHour = function(){
     homeService.getHourlyData().then(function(res){
       $scope.headerData = res.metadata;
-      $scope.earthquakes = res.features;
+      if (res.features.length === 0){
+        $scope.noQuake = "No earthquakes recorded in the last hour.";
+      } else {
+        $scope.earthquakes = res.features;
+      }
       $scope.updateTime = Date.now();
     })
   }
@@ -16,7 +20,12 @@ app.controller('homeCtrl', function($scope, homeService, authService){
     homeService.getHourlyDataLoggedIn().then(function(res){
       console.log('logged in control res: ', res)
       $scope.headerData = res.metadata;
-      $scope.earthquakes = res.features;
+      if (res.features.length === 0){
+        $scope.noQuake = "No earthquakes recorded in the last hour.";
+      } else {
+        $scope.earthquakes = res.features;
+      }
+      console.log(res.features.length);
       $scope.updateTime = Date.now();
     })
   }

@@ -105,6 +105,29 @@ App.get('/api/data', function(req, res){
 //   console.log('loc: ', loc);
 // });
 
+
+//twillio testing 
+
+// Twilio Credentials 
+var accountSid = 'ACfcdfe0c7200797bbbf956f456ebe223c'; 
+var authToken = 'ba67926e1e4aa1dbfc136fb32f79abde'; 
+ 
+//require the Twilio module and create a REST client 
+// Twilio Credentials 
+var accountSid = 'ACfcdfe0c7200797bbbf956f456ebe223c'; 
+var authToken = 'ba67926e1e4aa1dbfc136fb32f79abde'; 
+ 
+//require the Twilio module and create a REST client 
+var client = require('twilio')(accountSid, authToken); 
+ 
+client.messages.create({ 
+  to: "7327579649", 
+  from: "+17323911035", 
+  body: "TROGDOR",   
+}, function(err, message) { 
+  console.log(message.sid); 
+});
+
 //connections
 
 Mongoose.connect(Config.database, function(){
