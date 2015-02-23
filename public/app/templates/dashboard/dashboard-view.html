@@ -5,6 +5,8 @@
   <div class="col-md-6">
     <ul class="list-group">
       <li class="list-group-item">ZIP Code: {{user.zip}}</li>
+      <li class="list-group-item">Distance threshold: {{user.warningDistanceThreshold}}</li>
+      <li class="list-group-item">Magnitude threshold: {{user.warningMagnitudeThreshold}}</li>
       <li class="list-group-item">User Latitude {{user.latitude}}</li>
       <li class="list-group-item">User Longitude {{user.longitude}}</li>
     </ul>
@@ -21,5 +23,32 @@
       </div>
       <button class="btn btn-primary" ng-click="updateZip()">Update ZIP</button>
     </form>
+
+    <h3>Threshold Setup</h3>
+    <form class="form">
+      <div class="form-group">
+        
+        <label>Enter distance threshold</label>
+        <input placeholder="Enter distance threshold (in miles)" class="form-control" ng-model="updateDistanceThreshold">
+      </div>
+      <div 
+        <label>Choose magnitude threshold</label>
+        <select class="form-control" ng-model="updateMagnitudeThreshold">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+         </select>
+         <br>
+         <button class="btn btn-primary">Update Thresholds</button>
+        </div>
+      </form>
+
+    </div>
   </div>
 </div>

@@ -31,4 +31,9 @@ app.controller('dashboardCtrl', function($scope, dashboardService, authService){
         }
       })
   }
+
+  $scope.updateThresholds = function(){
+    dashboardService.updateThresholds()
+  }
+
 })

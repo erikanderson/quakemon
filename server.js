@@ -8,14 +8,12 @@ var Mongoose = require('mongoose');
 var Config = require('./config');
 var Morgan = require('morgan');
 var Request = require('request');
-var Https = require('https');
-var Http = require('http');
+var User = require('./lib/models/user');
 
 //controllers
 
-
-
 var userCtrl = require('./lib/controllers/user-control');
+var emailCtrl = require('./lib/controllers/email-control');
 
 //middleware
 
@@ -78,37 +76,62 @@ App.put('/api/users/:id', userCtrl.put);
 
 var hourlyData;
 counter = 0;
-
 function getHourlyData(){
   Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson', function(error, response, body){
-    // console.log('served request at ', Date.now());
-    // console.log('/////////// fetched geojson data ////////////');
-    hourlyData = body;
-    // console.log(hourlyData);
-    // console.log('****************************');
-    // console.log('++++++++++ ' + counter + ' ++++++++++++++');
+    hourlyData = JSON.parse(body);
+    console.log('counter is at: ', counter);
+    console.log('********* USGS data: ', hourlyData);
+    console.log(hourlyData.features.length);
     counter ++;
-    // return hourlyData;
   })
 }
-
 getHourlyData();
-
-setInterval(getHourlyData, 20000);
-
+setInterval(getHourlyData, 25000);
 App.get('/api/data', function(req, res){
     res.send(hourlyData);
 })
 
-//zip testing 
 
-// var Zip = require('./lib/models/zip');
-// Zip.findOne({_id: '07722'}, 'loc', function(err, loc){
-//   console.log('loc: ', loc);
-// });
+var distanceCalc = function(lat1, lon1, lat2, lon2, unit) {
+  var radlat1 = Math.PI * lat1/180
+  var radlat2 = Math.PI * lat2/180
+  var radlon1 = Math.PI * lon1/180
+  var radlon2 = Math.PI * lon2/180
+  var theta = lon1-lon2
+  var radtheta = Math.PI * theta/180
+  var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+  dist = Math.acos(dist)
+  dist = dist * 180/Math.PI
+  dist = dist * 60 * 1.1515
+  if (unit=="K") { dist = dist * 1.609344 }
+  if (unit=="N") { dist = dist * 0.8684 }
+  return dist
+}  
+
+function sendEmailAlerts(){
+  User.find({} ,function(err, users){
+    var featuresData = hourlyData.features;
+    var usersArr = users;
+    console.log('users: ', users);
+    for (var i = 0; i < usersArr.length; i++) {
+      for (var k = 0; k < featuresData.length; k++) {
+         var distance = parseInt(distanceCalc(usersArr[i].latitude, usersArr[i].longitude, featuresData[k].geometry.coordinates[1], featuresData[k].geometry.coordinates[0]));
+         console.log(featuresData[k].properties.mag);
+         var magnitude = featuresData[k].properties.mag;
+         if (distance < 500){
+          console.log(distance);
+          console.log('da quake is near');
+          emailCtrl.sendMail(distance, magnitude);
+         }
+      };
+    };  
+  })
+}
 
 
-//connections
+setInterval(sendEmailAlerts, 60000);
+
+
 
 Mongoose.connect(Config.database, function(){
   console.log('Connected to MongoDB at: ' + Config.database);
