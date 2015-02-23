@@ -3,9 +3,11 @@
   <head>
    <meta charset="UTF-8">
 
+   <title>quakemon | realtime earthquake data from USGS and user notification</title>
+
    <link rel="stylesheet" href="assets/libs/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link href='//fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+   <link href='//fonts.googleapis.com/css?family=Francois+One' rel='stylesheet' type='text/css'>
    <link rel="stylesheet" href="assets/css/style.css">
 
    <script src="assets/libs/angular/angular.min.js"></script>
@@ -39,8 +41,6 @@
         <li ng-show="user" ng-click="logout()"><a href="">Logout</a></li>
       </ul>
     </nav>
-
-    <pre>Current User ID:  {{user._id}}</pre>
 
   <div class="container">
     <div ng-view></div>

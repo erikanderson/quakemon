@@ -4,14 +4,23 @@
 }
 
 #mainnav {
-  background-color: #2980b9;
+  background-color: rgb(37, 116, 169);
   border-radius: 0;
   border: 0px;
   padding-right: 15px;
+  margin-bottom: 1px;
 }
 
 .navbar-default .navbar-nav>li>a {
 color: #ECEFF1;
+}
+
+.active {
+  color: #ECEFF1;
+}
+
+.warningDistance {
+  color: red;
 }
 
 .navbar-default .navbar-nav>li>a:hover {

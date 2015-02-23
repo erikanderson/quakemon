@@ -10,7 +10,6 @@ var Morgan = require('morgan');
 var Request = require('request');
 var Https = require('https');
 var Http = require('http');
-var fs = require('fs');
 
 //controllers
 
@@ -67,7 +66,7 @@ App.get('/auth/logout', function(req, res){
 })
 
 App.get('/auth/me', function(req, res){
-  // console.log('******** /auth/me **********');
+  console.log('******** /auth/me **********');
   return res.json(req.user);
 });
 

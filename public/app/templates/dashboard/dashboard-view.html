@@ -10,6 +10,10 @@
     </ul>
   </div>
   <div class="col-md-6">
+
+    <div class="alert alert-danger" ng-show="zipError">{{zipError}}</div>
+    <div ng-show="zipSuccess" class="alert alert-success" role="alert">{{zipSuccess}}</div>
+
     <form class="form">
       <div class="form-group">
         <label>Update ZIP code</label>
