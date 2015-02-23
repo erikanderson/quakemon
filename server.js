@@ -8,6 +8,9 @@ var Mongoose = require('mongoose');
 var Config = require('./config');
 var Morgan = require('morgan');
 var Request = require('Request');
+var Https = require('https');
+var Http = require('http');
+var fs = require('fs');
 
 //controllers
 
@@ -120,13 +123,13 @@ var authToken = 'ba67926e1e4aa1dbfc136fb32f79abde';
 //require the Twilio module and create a REST client 
 var client = require('twilio')(accountSid, authToken); 
  
-client.messages.create({ 
-  to: "7327579649", 
-  from: "+17323911035", 
-  body: "TROGDOR",   
-}, function(err, message) { 
-  console.log(message.sid); 
-});
+// client.messages.create({ 
+//   to: "7327579649", 
+//   from: "+17323911035", 
+//   body: "TROGDOR",   
+// }, function(err, message) { 
+//   console.log(message.sid); 
+// });
 
 //connections
 
