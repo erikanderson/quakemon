@@ -42,7 +42,7 @@ App.use(Passport.session());
 Passport.use(new GoogleStrategy({
   clientID: Config.google_client_id,
   clientSecret: Config.google_client_secret,
-  callbackURL: 'http://localhost:8080/auth/google/callback'
+  callbackURL: Config.callback
 }, function(token, tokenSecret, profile, done){
   userCtrl.updateOrCreate(profile).then(function(results){
     done(null, profile);
