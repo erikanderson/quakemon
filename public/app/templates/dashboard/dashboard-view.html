@@ -7,6 +7,9 @@
       <li class="list-group-item">ZIP Code: {{user.zip}}</li>
       <li class="list-group-item">Distance threshold: {{user.warningDistanceThreshold}}</li>
       <li class="list-group-item">Magnitude threshold: {{user.warningMagnitudeThreshold}}</li>
+      <li class="list-group-item">Email: {{user.email}}</li>
+      <li class="list-group-item">Email frequency: {{user.emailFrequency}}</li>
+      <li class="list-group-item">Email alerts enabled: {{user.emailAlertActive}}</li>
       <li class="list-group-item">User Latitude {{user.latitude}}</li>
       <li class="list-group-item">User Longitude {{user.longitude}}</li>
     </ul>
@@ -27,11 +30,14 @@
     <h3>Threshold Setup</h3>
     <form class="form">
       <div class="form-group">
-        
         <label>Enter distance threshold</label>
-        <input placeholder="Enter distance threshold (in miles)" class="form-control" ng-model="updateDistanceThreshold">
+        <div class="input-group">
+          <input placeholder="Enter distance threshold (in miles)" class="form-control" ng-model="updateDistanceThreshold">
+           <div class="input-group-addon">miles</div>
+        </div>
       </div>
-      <div 
+      <div>
+      <div class="form-group"> 
         <label>Choose magnitude threshold</label>
         <select class="form-control" ng-model="updateMagnitudeThreshold">
           <option value="1">1</option>
@@ -39,16 +45,41 @@
           <option value="3">3</option>
           <option value="4">4</option>
           <option value="5">5</option>
-          <option value="6">6</option>
+          <option value="6" selected>6</option>
           <option value="7">7</option>
           <option value="8">8</option>
           <option value="9">9</option>
          </select>
-         <br>
-         <button class="btn btn-primary">Update Thresholds</button>
-        </div>
-      </form>
+       </div>
+         <button ng-click="updateThresholds()" class="btn btn-primary">Update Thresholds</button>
+    </form>
 
-    </div>
-  </div>
-</div>
+    <h3><i class="fa fa-envelope-o"></i> Email alert setup</h3>
+      <form class="form">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" ng-model="updateEmailData">
+        </div>
+        <div class="form-group">
+          <label>Email frequency</label>
+          <select class="form-control" ng-model="updateEmailFrequency">
+            <option value="60000">1 minute</option>
+            <option value="300000">5 minutes</option>
+            <option value="600000">10 minutes</option>
+            <option value="900000">15 minutes</option>
+            <option value="1800000">30 minutes</option>
+            <option value="2700000">45 minutes</option>
+            <option value="3600000">1 hour</option>
+            <option value="7200000">2 hours</option>
+            <option value="14400000">4 Hours</option>
+            <option value="28800000">8 Hours</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>
+            <input ng-model="emailAlertActive" type="checkbox">
+            Email alerts enabled 
+          </label>
+        </div>
+        <button class="btn btn-primary" ng-click="updateEmail()">Update Email</button>
+      </form>

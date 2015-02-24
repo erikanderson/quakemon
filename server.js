@@ -69,7 +69,17 @@ App.get('/auth/me', function(req, res){
 });
 
 //endpoints
-App.put('/api/users/:id', userCtrl.put);
+
+var requireAuth = function(req, res, next) {
+    if (!req.isAuthenticated()) {
+        console.log('USER NOT AUTHENTICATED');
+        return res.status(401).end();
+    }
+    console.log('USER IS AUTHENTICATED');
+    return next();
+};
+
+App.put('/api/users/:id', requireAuth, userCtrl.put);
 
 
 //testing USGS geojson
@@ -86,7 +96,7 @@ function getHourlyData(){
   })
 }
 getHourlyData();
-setInterval(getHourlyData, 25000);
+setInterval(getHourlyData, 55000);
 App.get('/api/data', function(req, res){
     res.send(hourlyData);
 })
@@ -112,24 +122,32 @@ function sendEmailAlerts(){
   User.find({} ,function(err, users){
     var featuresData = hourlyData.features;
     var usersArr = users;
-    console.log('users: ', users);
+    var timeInMs = Date.now();
+    // console.log('users: ', users);
     for (var i = 0; i < usersArr.length; i++) {
-      for (var k = 0; k < featuresData.length; k++) {
-         var distance = parseInt(distanceCalc(usersArr[i].latitude, usersArr[i].longitude, featuresData[k].geometry.coordinates[1], featuresData[k].geometry.coordinates[0]));
-         console.log(featuresData[k].properties.mag);
-         var magnitude = featuresData[k].properties.mag;
-         if (distance < 500){
-          console.log(distance);
-          console.log('da quake is near');
-          emailCtrl.sendMail(distance, magnitude);
+      console.log('time in MS: ', timeInMs);
+      console.log('last email alert sent: ', usersArr[i].lastEmailAlertSent);
+      if (usersArr[i].emailAlertActive && (timeInMs - usersArr[i].lastEmailAlertSent) > usersArr[i].emailFrequency) {
+        for (var k = 0; k < featuresData.length; k++) {
+           var distance = parseInt(distanceCalc(usersArr[i].latitude, usersArr[i].longitude, featuresData[k].geometry.coordinates[1], featuresData[k].geometry.coordinates[0]));
+           console.log(featuresData[k].properties.mag);
+           var magnitude = featuresData[k].properties.mag;
+           if (distance < usersArr[i].warningDistanceThreshold && magnitude > usersArr[i].warningMagnitudeThreshold){
+            console.log(distance);
+            console.log('da quake is near and email alert is being sent');
+            User.update({_id: usersArr[i]._id}, {lastEmailAlertSent: Date.now()}, function(err, results){
+              console.log(results);
+            })
+            emailCtrl.sendMail(distance, magnitude);
+           }
          }
-      };
+      }
     };  
   })
 }
 
 
-setInterval(sendEmailAlerts, 60000);
+setInterval(sendEmailAlerts, 20000);
 
 
 

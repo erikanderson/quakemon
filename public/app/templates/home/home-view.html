@@ -1,5 +1,5 @@
 <h3 ng-cloak class="title">{{headerData.title}}</h3>
-<div ng-cloak class="update">Last updated at: {{updateTime | date: 'medium'}}</div>
+<div ng-cloak class="update">Data fetched every 20 seconds. Last updated at: {{updateTime | date: 'medium'}}</div>
 
 <table ng-cloak class="table">
   <thead>
@@ -12,7 +12,7 @@
     <th>Detail</th>
   </thead>
   <tbody>
-    <tr ng-repeat="earthquake in earthquakes" ng-class="{warningDistance: (earthquake.distanceToUser < 500)}">
+    <tr ng-repeat="earthquake in earthquakes" ng-class="{warningDistance: (earthquake.distanceToUser < user.warningDistanceThreshold)}">
       <td>{{earthquake.properties.time | date: 'mediumTime'}}</td>
       <td>{{earthquake.properties.mag}}</td>
       <td>{{earthquake.properties.place}}</td>
