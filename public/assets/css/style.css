@@ -23,11 +23,11 @@
 }
 
 .navbar-default .navbar-nav>li>a:focus {
-color: #999999;
+background-color: rgb(51, 51, 51);
 }
 
 .navbar-default .navbar-nav>li>a:hover {
-color: #999999;
+background-color: rgb(51, 51, 51);
 }
 
 .headerImg {
