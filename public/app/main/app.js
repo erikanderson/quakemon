@@ -1,12 +1,22 @@
-var app = angular.module('quakemon', ['ngRoute']);
+var app = angular.module('quakemon', ['ui.router']);
 
-app.config(function($routeProvider){
-  $routeProvider
-    .when('/', {
+app.config(function($stateProvider, $urlRouterProvider){
+  $stateProvider
+    .state('/', {
+      url: '/',
       templateUrl: '/app/templates/home/home-view.html',
-      controller: 'homeCtrl'
+      controller: 'homeCtrl',
+      resolve: {
+        user: function(authService){
+          return authService.updateUser()
+        },
+        earthquakes: function(homeService, user){
+          return homeService.getHourlyData(user);
+        }
+      }
     })
-    .when('/dashboard', {
+    .state('dashboard', {
+      url: '/dashboard',
       templateUrl: '/app/templates/dashboard/dashboard-view.html',
       controller: 'dashboardCtrl',
       resolve: {
@@ -15,5 +25,9 @@ app.config(function($routeProvider){
         }
       }
     })
-    .otherwise('/');
+    .state('about', {
+      url: '/about',
+      templateUrl: '/app/templates/utility/privacy.html'
+    })
+    $urlRouterProvider.otherwise("/");
 })

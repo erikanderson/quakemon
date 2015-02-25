@@ -19,24 +19,52 @@ app.service('homeService', function($http, $q, authService){
     return dist
   }  
 
-  this.getHourlyData = function(){
-    var deferred = $q.defer();
-    $http({
-      method: 'GET',
-      url: '/api/data'
-    }).then(function(res){
-      console.log('gethourlydata res: ', res);
-      deferred.resolve(res.data);
-    })
+  // var user = authService.getUser();
+
+  this.getHourlyData = function(user){
+    // console.log(userForCalc)
+    // console.log(distanceCalc);
+    console.log(user);
+    if (!user) {
+      console.log('NO USER');
+      var deferred = $q.defer();
+      $http({
+        method: 'GET',
+        url: '/api/data'
+      }).then(function(res){
+        console.log('gethourlydata res: ', res.data.features);
+        deferred.resolve(res.data.features);
+      })
+    } else if (user){
+      console.log('USER LOGGED IN');
+      var latitude1 = user.latitude;
+      var longitude1 = user.longitude;
+      var deferred = $q.defer();
+      $http({
+        method: 'GET',
+        url: '/api/data'
+      }).then(function(res){
+        // console.log('//////// userCalc: ', userCalc);
+        // console.log('******* api data: ', res);
+        for (var i = 0; i < res.data.features.length; i++) {
+          var latitude2 = res.data.features[i].geometry.coordinates[1];
+          var longitude2 = res.data.features[i].geometry.coordinates[0];
+          // console.log('in for loop: ', latitude2, longitude2);
+          var distanceToUser = distanceCalc(latitude1, longitude1, latitude2, longitude2);
+          res.data.features[i].distanceToUser = distanceToUser;
+          // console.log(res.data.features[i].distanceToUser);
+        }
+        console.log('Logged in data: ', res.data.features);
+        deferred.resolve(res.data.features);
+      })
+    }
     return deferred.promise;
   }
 
   this.getHourlyDataLoggedIn = function(){
     var userCalc = authService.getUser(); 
     var latitude1 = userCalc.latitude;
-    // console.log(latitude1);
     var longitude1 = userCalc.longitude;
-    // console.log(longitude1);
     var deferred = $q.defer();
     $http({
       method: 'GET',
