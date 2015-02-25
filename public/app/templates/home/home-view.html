@@ -12,7 +12,7 @@
     <th>Detail</th>
   </thead>
   <tbody>
-    <tr ng-repeat="earthquake in earthquakes" ng-class="{warningDistance: (earthquake.distanceToUser < user.warningDistanceThreshold)}">
+    <tr ng-repeat="earthquake in earthquakes" ng-class="{warningDistance: (earthquake.distanceToUser < user.emailDistance)}">
       <td>{{earthquake.properties.time | date: 'mediumTime'}}</td>
       <td>{{earthquake.properties.mag}}</td>
       <td>{{earthquake.properties.place}}</td>

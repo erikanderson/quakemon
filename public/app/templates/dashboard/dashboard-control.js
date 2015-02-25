@@ -3,11 +3,15 @@ var app = angular.module('quakemon');
 app.controller('dashboardCtrl', function($scope, dashboardService, authService){
  
  $scope.updateZipData = $scope.user.zip;
- $scope.updateDistanceThreshold = $scope.user.warningDistanceThreshold;
- $scope.updateMagnitudeThreshold = $scope.user.warningMagnitudeThreshold;
+ $scope.emailDistance = $scope.user.emailDistance;
+ $scope.emailMagnitude = $scope.user.emailMagnitude;
  $scope.updateEmailData = $scope.user.email;
  $scope.emailAlertActive = $scope.user.emailAlertActive;
  $scope.updateEmailFrequency = $scope.user.emailFrequency;
+ $scope.updateTextData = $scope.user.cell;
+ $scope.textAlertActive = $scope.user.textAlertActive;
+ $scope.updateTextFrequency = $scope.user.textFrequency;
+ $scope.updateTextMagnitude = $scope.user.textMagnitude;
 
 
   var updateUser = function(){
@@ -41,7 +45,7 @@ app.controller('dashboardCtrl', function($scope, dashboardService, authService){
   }
 
   $scope.updateThresholds = function(){
-    dashboardService.updateThresholds($scope.user._id, $scope.updateDistanceThreshold, $scope.updateMagnitudeThreshold)
+    dashboardService.updateThresholds($scope.user._id, $scope.emailDistance, $scope.emailMagnitude)
       .then(function(res){
         console.log(res);
         updateUser();
@@ -50,6 +54,14 @@ app.controller('dashboardCtrl', function($scope, dashboardService, authService){
 
   $scope.updateEmail = function(){
     dashboardService.updateEmail($scope.user._id, $scope.updateEmailData, $scope.emailAlertActive, $scope.updateEmailFrequency)
+      .then(function(res){
+        console.log(res);
+        updateUser();
+      })
+  }
+
+  $scope.updateText = function(){
+    dashboardService.updateText($scope.user._id, $scope.updateTextData, $scope.textAlertActive, $scope.updateTextFrequency, $scope.updateTextMagnitude)
       .then(function(res){
         console.log(res);
         updateUser();

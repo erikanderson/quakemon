@@ -20,7 +20,7 @@ app.service('dashboardService', function($http, $q){
     $http({
       method: 'PUT',
       url: '/api/users/' + id,
-      data: {warningDistanceThreshold: dist, warningMagnitudeThreshold: mag}
+      data: {emailDistance: dist, emailMagnitude: mag}
     }).then(function(res, data){
       dfd.resolve(res);
     })
@@ -39,7 +39,26 @@ app.service('dashboardService', function($http, $q){
     return dfd.promise;
   }
 
+  this.updateText = function(id, cell, alert, freq, mag){
+    var dfd = $q.defer();
+    $http({
+      method: 'PUT',
+      url: '/api/users/' + id,
+      data: {
+        cell: cell,
+        textAlertActive: alert,
+        textFrequency: freq,
+        textMagnitude: mag
+      }
+    }).then(function(res, data){
+      dfd.resolve(res);
+    })
+    return dfd.promise;
+  }
+
 })
+
+
 
 
 // mongoimport --db quakemon --collection zips zips.json --jsonArray

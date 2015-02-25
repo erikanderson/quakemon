@@ -14,6 +14,7 @@ var User = require('./lib/models/user');
 
 var userCtrl = require('./lib/controllers/user-control');
 var emailCtrl = require('./lib/controllers/email-control');
+var textCtrl = require('./lib/controllers/text-control');
 
 //middleware
 
@@ -90,8 +91,8 @@ function getHourlyData(){
   Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson', function(error, response, body){
     hourlyData = JSON.parse(body);
     console.log('counter is at: ', counter);
-    console.log('********* USGS data: ', hourlyData);
-    console.log(hourlyData.features.length);
+    //console.log('********* USGS data: ', hourlyData);
+    //console.log(hourlyData.features.length);
     counter ++;
   })
 }
@@ -132,13 +133,12 @@ function sendEmailAlerts(){
            var distance = parseInt(distanceCalc(usersArr[i].latitude, usersArr[i].longitude, featuresData[k].geometry.coordinates[1], featuresData[k].geometry.coordinates[0]));
            console.log(featuresData[k].properties.mag);
            var magnitude = featuresData[k].properties.mag;
-           if (distance < usersArr[i].warningDistanceThreshold && magnitude > usersArr[i].warningMagnitudeThreshold){
+           if (distance < usersArr[i].emailDistance && magnitude > usersArr[i].emailMagnitude){
             console.log(distance);
-            console.log('da quake is near and email alert is being sent');
             User.update({_id: usersArr[i]._id}, {lastEmailAlertSent: Date.now()}, function(err, results){
               console.log(results);
             })
-            emailCtrl.sendMail(distance, magnitude);
+            emailCtrl.sendMail(distance, magnitude, usersArr[i].email);
            }
          }
       }
@@ -146,10 +146,37 @@ function sendEmailAlerts(){
   })
 }
 
-
 setInterval(sendEmailAlerts, 20000);
 
+  function sendTextAlerts(){
+    User.find({}, function(err, users){
+      var featuresData = hourlyData.features;
+      var usersArr = users;
+      var timeInMs = Date.now();
+      for (var i = 0; i < usersArr.length; i++) {
+        console.log('text in first for');
+        if (usersArr[i].cell && usersArr[i].textAlertActive && (timeInMs - usersArr[i].lastTextAlertSent) > usersArr[i].textFrequency) {
+          console.log('text in first if');
+          for (var k = 0; k < featuresData.length; k++) {
+            console.log('text in second for');
+            var distance = parseInt(distanceCalc(usersArr[i].latitude, usersArr[i].longitude, featuresData[k].geometry.coordinates[1], featuresData[k].geometry.coordinates[0]));
+            console.log(featuresData[k].properties.mag);
+            var magnitude = featuresData[k].properties.mag;
+            if (distance < usersArr[i].emailDistance && magnitude > usersArr[i].textMagnitude){
+              console.log('text in second if');
+              console.log('**********danger close and text alert is being sent**********');
+              User.update({_id: usersArr[i]._id}, {lastTextAlertSent: Date.now()}, function(err, results){
+                console.log(results);
+              })
+              textCtrl.sendText(usersArr[i].cell, distance, magnitude)
+            }
+          }
+        }
+      }
+    })
+  }
 
+setInterval(sendTextAlerts, 10000);
 
 Mongoose.connect(Config.database, function(){
   console.log('Connected to MongoDB at: ' + Config.database);
