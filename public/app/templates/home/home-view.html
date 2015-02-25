@@ -1,7 +1,7 @@
 <h3 ng-cloak class="title">{{headerData.title}}</h3>
 <div ng-cloak class="update">Data fetched every 20 seconds. Last updated at: {{updateTime | date: 'medium'}}</div>
 
-<table ng-cloak class="table">
+<table ng-cloak class="table table-striped">
   <thead>
     <th>Time</th>
     <th>Magnitude</th>
@@ -14,11 +14,11 @@
   <tbody>
     <tr ng-repeat="earthquake in earthquakes" ng-class="{warningDistance: (earthquake.distanceToUser < user.emailDistance)}">
       <td>{{earthquake.properties.time | date: 'mediumTime'}}</td>
-      <td>{{earthquake.properties.mag}}</td>
+      <td class="magnitude">{{earthquake.properties.mag}}</td>
       <td>{{earthquake.properties.place}}</td>
       <td>{{earthquake.geometry.coordinates[2]}} Miles</td>
       <td><a href="https://www.google.com/maps/@{{earthquake.geometry.coordinates[1]}},{{earthquake.geometry.coordinates[0]}},3809m/data=!3m1!1e3" target="_blank">{{earthquake.geometry.coordinates[1]}}, {{earthquake.geometry.coordinates[0]}}</a></td>
-      <td ng-show="user">{{earthquake.distanceToUser | number}} miles</td>
+      <td ng-show="user"><span class="distanceUser">{{earthquake.distanceToUser | number}}</span> miles</td>
       <td><a href={{earthquake.properties.url}} target='_blank'>USGS Detail</a></td>
     </tr>
   </tbody>

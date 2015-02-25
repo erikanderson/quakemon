@@ -1,45 +1,46 @@
  <h3>User Dashboard</h3>
-<pre>{{user}}</pre>
+<!-- <pre>{{user}}</pre> -->
+
+<div ng-show="successMsg" class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  {{successMsg}}
+</div>
+
+<div ng-show="errorMsg" class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  {{errorMsg}}
+</div>
 
 <div class="row">
-  <div class="col-md-6">
-    <ul class="list-group">
-      <li class="list-group-item">ZIP Code: {{user.zip}}</li>
-      <li class="list-group-item">Distance threshold for email: {{user.emailDistance}}</li>
-      <li class="list-group-item">Magnitude threshold for email: {{user.emailMagnitude}}</li>
-      <li class="list-group-item">Email: {{user.email}}</li>
-      <li class="list-group-item">Email frequency: {{user.emailFrequency}}</li>
-      <li class="list-group-item">Email alerts enabled: {{user.emailAlertActive}}</li>
-      <li class="list-group-item">Cell: {{user.cell}}</li>
-      <li class="list-group-item">Text alerts frequency: {{user.textFrequency}}</li>
-      <li class="list-group-item">Text alerts enabled: {{user.textAlertActive}}</li>
-      <li class="list-group-item">User Latitude {{user.latitude}}</li>
-      <li class="list-group-item">User Longitude {{user.longitude}}</li>
-    </ul>
-  </div>
   <div class="col-md-6">
 
     <div class="alert alert-danger" ng-show="zipError">{{zipError}}</div>
     <div ng-show="zipSuccess" class="alert alert-success" role="alert">{{zipSuccess}}</div>
 
+  <div class="well">
+    <h3>User Location Setup</h3>
     <form class="form">
       <div class="form-group">
-        <label>Update ZIP code</label>
-        <input placeholder="Enter New ZIP Code" class="form-control" ng-model="updateZipData">
+        <label>ZIP code <a href=" " title="ZIP code gives users approximate Latitude/Longitude for use in home page and alerts"><i class="fa fa-question-circle"></i></a></label>
+        <input placeholder="Enter New ZIP Code - first 5 digits only required" class="form-control" ng-model="updateZipData">
       </div>
-      <button class="btn btn-primary" ng-click="updateZip()">Update ZIP</button>
+      <button class="btn btn-primary" ng-click="updateDashboard()">Update ZIP</button>
     </form>
+  </div>
 
+  <div class="alert alert-danger" ng-show="thresholdError">{{thresholdError}}</div>
+  <div ng-show="thresholdSuccess" class="alert alert-success" role="alert">{{thresholdSuccess}}</div>
+
+  <div class="well">
     <h3>Threshold Setup</h3>
     <form class="form">
       <div class="form-group">
-        <label>Distance threshold <a href=" " title="Will alert if earthquake is within this distance"><i class="fa fa-question-circle"></i></a></label>
+        <label>Distance threshold <a href=" " title="Will alert if earthquake is within this distance by highlighting in red on the home page and/or alerting with email or text"><i class="fa fa-question-circle"></i></a></label>
         <div class="input-group">
           <input placeholder="Distance threshold" class="form-control" ng-model="emailDistance">
            <div class="input-group-addon">miles</div>
         </div>
       </div>
-      <div>
       <div class="form-group"> 
         <label>Choose magnitude threshold <a href=" " title="Will alert if earthquake is this value and higher"><i class="fa fa-question-circle"></i></a></label>
         <select class="form-control" ng-model="emailMagnitude">
@@ -54,9 +55,11 @@
           <option value="9">9</option>
          </select>
        </div>
-         <button ng-click="updateThresholds()" class="btn btn-primary">Update Threshold Settings</button>
+         <button ng-click="updateDashboard()" class="btn btn-primary">Update Threshold Settings</button>
     </form>
+  </div>
 
+    <div class="well">
     <h3><i class="fa fa-envelope-o"></i> Email alert setup</h3>
       <form class="form">
         <div class="form-group">
@@ -84,13 +87,15 @@
             Email alerts enabled 
           </label>
         </div>
-        <button class="btn btn-primary" ng-click="updateEmail()">Update Email Settings</button>
+        <button class="btn btn-primary" ng-click="updateDashboard()">Update Email Settings</button>
       </form>
+    </div>
 
+   <div class="well">
     <h3><i class="fa fa-mobile"></i> Text alert setup</h3>
       <form class="form">
         <div class="form-group">
-          <label>Cell</label>
+          <label>Cell number</label>
           <input type="tel" class="form-control" placeholder="1112223333" ng-model="updateTextData">
         </div>
         <div class="form-group">
@@ -123,5 +128,33 @@
             Text alerts enabled 
           </label>
         </div>
-        <button class="btn btn-primary" ng-click="updateText()">Update Text Settings</button>
+        <button class="btn btn-primary" ng-click="updateDashboard()">Update Text Settings</button>
       </form>
+    </div>
+  </div>
+
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">User Info</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <li class="list-group-item">ZIP Code: {{user.zip}}</li>
+          <li class="list-group-item">User Latitude {{user.latitude}}</li>
+          <li class="list-group-item">User Longitude {{user.longitude}}</li>
+          <li class="list-group-item">Distance threshold for email: {{user.emailDistance}}</li>
+          <li class="list-group-item">Magnitude threshold for email: {{user.emailMagnitude}}</li>
+          <li class="list-group-item">Email: {{user.email}}</li>
+          <li class="list-group-item">Email frequency: {{user.emailFrequency}}</li>
+          <li class="list-group-item">Email alerts enabled: {{user.emailAlertActive}}</li>
+          <li class="list-group-item">Cell: {{user.cell}}</li>
+          <li class="list-group-item">Text alerts frequency: {{user.textFrequency}}</li>
+          <li class="list-group-item">Text alerts enabled: {{user.textAlertActive}}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div> 
+

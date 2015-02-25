@@ -1,6 +1,31 @@
 var app = angular.module('quakemon');
 
 app.service('dashboardService', function($http, $q){
+
+  this.updateDashboard = function(id, zip, edist, emag, email, ealert, efreq, cell, talert, tfreq, tmag) {
+    var dfd = $q.defer();
+    $http({
+      method: 'PUT',
+      url: '/api/users/' + id,
+      data: {
+        zip: zip,
+        emailDistance: edist,
+        emailMagnitude: emag,
+        email: email,
+        emailAlertActive: ealert,
+        emailFrequency: efreq,
+        cell: cell,
+        textAlertActive: talert,
+        textFrequency: tfreq,
+        textMagnitude: tmag
+      }
+    }).then(function(res, data){
+      dfd.resolve(res);
+    })
+    return dfd.promise;
+  }
+
+  
   this.updateZip = function(id, zip){
     console.log('dashboard service', id, zip)
     var dfd = $q.defer();

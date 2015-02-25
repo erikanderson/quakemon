@@ -23,6 +23,36 @@ app.controller('dashboardCtrl', function($scope, dashboardService, authService){
       })
   }
 
+  $scope.updateDashboard = function(){
+    dashboardService.updateDashboard(
+      $scope.user._id, 
+      $scope.updateZipData, 
+      $scope.emailDistance, 
+      $scope.emailMagnitude, 
+      $scope.updateEmailData, 
+      $scope.emailAlertActive, 
+      $scope.updateEmailFrequency, 
+      $scope.updateTextData, 
+      $scope.textAlertActive, 
+      $scope.updateTextFrequency, 
+      $scope.updateTextMagnitude
+    ).then(function(res){
+      console.log(res);
+      if (res.status === 200 && !res.data.zipError) {
+        $scope.errorMsg = '';
+        $scope.successMsg = 'User successfully updated';
+        updateUser();
+      } else if (res.status === 500){
+        $scope.successMsg = '';
+        $scope.errorMsg = 'There was an error updating user';
+        updateUser();
+      } else if (res.status === 200 && res.data.zipError){
+        $scope.successMsg = '';
+        $scope.errorMsg = 'ZIP code not found in database. Please try again or enter another ZIP that is close to you';
+        updateUser();
+      }
+    })
+  }
 
   $scope.updateZip = function(){
     console.log('scope user id', $scope.user._id);

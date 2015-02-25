@@ -1,0 +1,14 @@
+    <nav class="navbar navbar-default" id="mainnav">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <span id="title"><i class="fa fa-heartbeat"></i> QUAKEMON</span>
+        </a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li>{{main.user._id}}</li>
+        <li><a href="/#/"><i class="fa fa-home"></i>Home</a></li>
+        <li ng-show="!user"><a href="/auth/google"><i class="fa fa-google-plus"></i>Login</a></li>
+        <li ng-show="user"><a href="/#/dashboard">Dashboard</a></li>
+        <li ng-show="user" ng-click="logout()"><a href="">Logout</a></li>
+      </ul>
+    </nav>
