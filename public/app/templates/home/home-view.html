@@ -1,6 +1,6 @@
 <div class="homeWrapper">
   <h3>USGS Magnitude 1.0+ Earthquakes, Past Hour</h3>
-  <div class="update">Data fetched every 20 seconds. Last updated at: {{updateTime | date: 'medium'}}</div>
+  <div ng-show"updateTime" class="update">Data fetched every 20 seconds. Last updated at: {{updateTime | date: 'medium'}}</div>
 
   <table class="table table-striped mainTable">
     <thead>
