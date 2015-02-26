@@ -1,13 +1,12 @@
 var app = angular.module('quakemon');
 
-app.controller('homeCtrl', function($scope, homeService, authService, earthquakes){
+app.controller('homeCtrl', function($scope, homeService, authService, earthquakes, user){
   
-  var userLoggedIn = authService.getUser(); 
 
   $scope.earthquakes = earthquakes;
   
-  $scope.getDataLastHour = function(){
-    homeService.getHourlyData().then(function(res){
+  $scope.getDataLastHour = function(user){
+    homeService.getHourlyData(user).then(function(res){
       if (res.length === 0){
         $scope.noQuake = "No earthquakes recorded in the last hour.";
       } else {
@@ -17,25 +16,31 @@ app.controller('homeCtrl', function($scope, homeService, authService, earthquake
     })
   }
 
+  // $scope.getDataLastHour(user);
+
   setInterval(function(){
-  $scope.getDataLastHour();
+  console.log('Injected user: ', user);
+  }, 10000);
+
+  setInterval(function(){
+  $scope.getDataLastHour(user);
   }, 20000);
 
+  // var user = authService.getUser();
 
-
-  $scope.getDataLastHourLoggedIn = function(){
-    homeService.getHourlyDataLoggedIn().then(function(res){
-      console.log('logged in control res: ', res)
-      $scope.headerData = res.metadata;
-      if (res.features.length === 0){
-        $scope.noQuake = "No earthquakes recorded in the last hour.";
-      } else {
-        $scope.earthquakes = res.features;
-      }
-      console.log(res.features.length);
-      $scope.updateTime = Date.now();
-    })
-  }
+  // $scope.getDataLastHourLoggedIn = function(){
+  //   homeService.getHourlyDataLoggedIn().then(function(res){
+  //     console.log('logged in control res: ', res)
+  //     $scope.headerData = res.metadata;
+  //     if (res.features.length === 0){
+  //       $scope.noQuake = "No earthquakes recorded in the last hour.";
+  //     } else {
+  //       $scope.earthquakes = res.features;
+  //     }
+  //     console.log(res.features.length);
+  //     $scope.updateTime = Date.now();
+  //   })
+  // }
 
   // if (!userLoggedIn){
   //   console.log('user is not logged in');
