@@ -1,6 +1,7 @@
 <div class="homeWrapper">
   <h3>USGS Magnitude 1.0+ Earthquakes, Past Hour</h3>
-  <div ng-show"updateTime" class="update">Data fetched every 20 seconds. Last updated at: {{updateTime | date: 'medium'}}</div>
+  <div class="update">Data fetched every 10 seconds. <span class="showTime cssFade" ng-show="updateTime">Last updated at: {{updateTime | date: 'medium'}}</span></div>
+
 
   <table class="table table-striped mainTable">
     <thead>
@@ -9,11 +10,11 @@
       <th>Location</th>
       <th>Depth</th>
       <th>Lat/Long</th>
-      <th ng-show="user">Distance from User Zip</th>
+      <th ng-show="user.zip">Distance from User</th>
       <th>Detail</th>
     </thead>
     <tbody>
-      <tr ng-repeat="earthquake in earthquakes" ng-class="{warningDistance: (earthquake.distanceToUser < user.emailDistance)}">
+      <tr ng-repeat="earthquake in earthquakes" class="my-repeat-animation" ng-class="{warningDistance: (earthquake.distanceToUser < user.monitorDistance)}">
         <td>{{earthquake.properties.time | date: 'mediumTime'}}</td>
         <td class="magnitude">{{earthquake.properties.mag}}</td>
         <td>{{earthquake.properties.place}}</td>
@@ -27,7 +28,7 @@
 
   <div ng-show="noQuake" class="alert alert-success" role="alert">{{noQuake}}</div>
 
-  <pre>Current user latitude/longitude: {{user.latitude}}/{{user.longitude}}</pre>
+  <pre ng-show="user">Current user latitude/longitude: {{user.latitude}}/{{user.longitude}}</pre>
 
   <div>
     <p>Data provided by <a href="http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank">USGS</a></p>

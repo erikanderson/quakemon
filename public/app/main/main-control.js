@@ -6,7 +6,7 @@ app.controller('mainCtrl', function($scope, authService){
     authService.updateUser()
       .then(function(data){
         $scope.user = data;
-        console.log($scope.user);
+        //console.log($scope.user);
       })
   }
 

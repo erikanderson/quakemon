@@ -1,4 +1,4 @@
-var app = angular.module('quakemon', ['ui.router']);
+var app = angular.module('quakemon', ['ui.router', 'ngAnimate']);
 
 app.config(function($stateProvider, $urlRouterProvider){
   $stateProvider

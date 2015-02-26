@@ -3,15 +3,23 @@ var app = angular.module('quakemon');
 app.controller('dashboardCtrl', function($scope, dashboardService, authService){
  
  $scope.updateZipData = $scope.user.zip;
+ $scope.latitude = $scope.user.latitude;
+ $scope.longitude = $scope.user.longitude;
+
+ $scope.monitorDistance = $scope.user.monitorDistance;
+ $scope.monitorMagnitude = $scope.user.monitorMagnitude;
+
+ $scope.updateEmailData = $scope.user.email;
  $scope.emailDistance = $scope.user.emailDistance;
  $scope.emailMagnitude = $scope.user.emailMagnitude;
- $scope.updateEmailData = $scope.user.email;
- $scope.emailAlertActive = $scope.user.emailAlertActive;
  $scope.updateEmailFrequency = $scope.user.emailFrequency;
+ $scope.emailAlertActive = $scope.user.emailAlertActive;
+
  $scope.updateTextData = $scope.user.cell;
- $scope.textAlertActive = $scope.user.textAlertActive;
- $scope.updateTextFrequency = $scope.user.textFrequency;
+ $scope.textDistance = $scope.user.textDistance;
  $scope.updateTextMagnitude = $scope.user.textMagnitude;
+ $scope.updateTextFrequency = $scope.user.textFrequency;
+ $scope.textAlertActive = $scope.user.textAlertActive;
 
 
   var updateUser = function(){
@@ -26,7 +34,9 @@ app.controller('dashboardCtrl', function($scope, dashboardService, authService){
   $scope.updateDashboard = function(){
     dashboardService.updateDashboard(
       $scope.user._id, 
-      $scope.updateZipData, 
+      $scope.updateZipData,
+      $scope.monitorDistance,
+      $scope.monitorMagnitude, 
       $scope.emailDistance, 
       $scope.emailMagnitude, 
       $scope.updateEmailData, 
@@ -35,7 +45,8 @@ app.controller('dashboardCtrl', function($scope, dashboardService, authService){
       $scope.updateTextData, 
       $scope.textAlertActive, 
       $scope.updateTextFrequency, 
-      $scope.updateTextMagnitude
+      $scope.updateTextMagnitude,
+      $scope.textDistance
     ).then(function(res){
       console.log(res);
       if (res.status === 200 && !res.data.zipError) {

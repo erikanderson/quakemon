@@ -3,6 +3,7 @@
   display: none !important;
 }
 
+
 #mainnav {
   border-radius: 0;
   border: 0px;
@@ -56,29 +57,13 @@ background-color: rgb(51, 51, 51);
 }
 
 
-
-/*#title {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 700;
-}*/
-/*
-.navbar-default .navbar-nav>li>a {
-color: #ECEFF1;
+.cssFade {
+    transition: 0.5s linear all;
+    opacity: 1;
+}
+.cssFade.ng-hide {
+    opacity: 0;
 }
 
-.active {
-  color: #ECEFF1;
-}
 
-.warningDistance {
-  color: #e74c3c;
-}
-
-.navbar-default .navbar-nav>li>a:hover {
-color: #37474F;
-}
-
-.navbar-default .navbar-brand {
-color: #ECEFF1;
-}*/
 

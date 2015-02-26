@@ -1,49 +1,56 @@
  <h3>User Dashboard</h3>
-<!-- <pre>{{user}}</pre> -->
 
-<div ng-show="successMsg" class="alert alert-success alert-dismissible" role="alert">
+<div ng-show="successMsg" class="alert alert-success alert-dismissible fade in" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   {{successMsg}}
 </div>
 
-<div ng-show="errorMsg" class="alert alert-danger alert-dismissible" role="alert">
+<div ng-show="errorMsg" class="alert alert-danger alert-dismissible flash" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   {{errorMsg}}
 </div>
 
-<div class="row">
-  <div class="col-md-6">
-
-    <div class="alert alert-danger" ng-show="zipError">{{zipError}}</div>
-    <div ng-show="zipSuccess" class="alert alert-success" role="alert">{{zipSuccess}}</div>
-
-  <div class="well">
-    <h3>User Location Setup</h3>
-    <form class="form">
-      <div class="form-group">
-        <label>ZIP code <a href=" " title="ZIP code gives users approximate Latitude/Longitude for use in home page and alerts"><i class="fa fa-question-circle"></i></a></label>
-        <input placeholder="Enter New ZIP Code - first 5 digits only required" class="form-control" ng-model="updateZipData">
-      </div>
-      <button class="btn btn-primary" ng-click="updateDashboard()">Update ZIP</button>
-    </form>
+<!-- <div ng-show="user.zip" class="panel panel-default cssFade">
+  <div class="panel-body">
+    <span><strong>User Latitude</strong>: {{user.latitude}} </span>
+    <span><strong>User Longitude</strong>: {{user.longitude}} </span>
   </div>
+</div> -->
 
-  <div class="alert alert-danger" ng-show="thresholdError">{{thresholdError}}</div>
-  <div ng-show="thresholdSuccess" class="alert alert-success" role="alert">{{thresholdSuccess}}</div>
+<div class="row">
+  <div class="col-md-4">
+    <div class="well">
+      <h3>User Location Setup</h3>
+      <form class="form">
+        <div class="form-group">
+          <label>US ZIP code <a href=" " title="ZIP code gives users approximate Latitude/Longitude for use in home page and alerts. If you are not in the US please enter your latitude and longitude"><i class="fa fa-question-circle"></i></a></label>
+          <input placeholder="5 digit US ZIP" class="form-control" ng-model="updateZipData">
+        </div>
+<!--         <div class="form-group">
+          <label>Latitude</label>
+          <input ng-model="latitude" class="form-control" placeholder="Enter in ZIP above or manually enter">
+        </div>
+        <div class="form-group">
+          <label>Longitude</label>
+          <input ng-model="latitude" class="form-control" placeholder="Enter in ZIP above or manually enter">
+        </div> -->
+        <button class="btn btn-primary" ng-click="updateDashboard()">Update ZIP</button>
+      </form>
+    </div>
 
   <div class="well">
-    <h3>Threshold Setup</h3>
+    <h3>Monitor Setup</h3>
     <form class="form">
       <div class="form-group">
-        <label>Distance threshold <a href=" " title="Will alert if earthquake is within this distance by highlighting in red on the home page and/or alerting with email or text"><i class="fa fa-question-circle"></i></a></label>
+        <label>Distance threshold <a href=" " title="Will alert if earthquake is within this distance by highlighting in red on the home page"><i class="fa fa-question-circle"></i></a></label>
         <div class="input-group">
-          <input placeholder="Distance threshold" class="form-control" ng-model="emailDistance">
+          <input placeholder="Distance threshold" class="form-control" ng-model="monitorDistance">
            <div class="input-group-addon">miles</div>
         </div>
       </div>
       <div class="form-group"> 
         <label>Choose magnitude threshold <a href=" " title="Will alert if earthquake is this value and higher"><i class="fa fa-question-circle"></i></a></label>
-        <select class="form-control" ng-model="emailMagnitude">
+        <select class="form-control" ng-model="monitorMagnitude">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -58,14 +65,37 @@
          <button ng-click="updateDashboard()" class="btn btn-primary">Update Threshold Settings</button>
     </form>
   </div>
+</div>
 
+  <div class="col-md-4">
     <div class="well">
-    <h3><i class="fa fa-envelope-o"></i> Email alert setup</h3>
+      <h3><i class="fa fa-envelope-o"></i> Email Alerts</h3>
       <form class="form">
         <div class="form-group">
           <label>Email</label>
           <input type="email" class="form-control" ng-model="updateEmailData">
         </div>
+        <div class="form-group">
+          <label>Distance threshold <a href=" " title="Will alert if earthquake is within this distance"><i class="fa fa-question-circle"></i></a></label>
+          <div class="input-group">
+            <input placeholder="Distance threshold" class="form-control" ng-model="emailDistance">
+            <div class="input-group-addon">miles</div>
+          </div>
+        </div>
+      <div class="form-group"> 
+        <label>Choose magnitude threshold <a href=" " title="Will alert if earthquake is this value and higher"><i class="fa fa-question-circle"></i></a></label>
+        <select class="form-control" ng-model="emailMagnitude">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+         </select>
+       </div>
         <div class="form-group">
           <label>Email frequency</label>
           <select class="form-control" ng-model="updateEmailFrequency">
@@ -90,13 +120,31 @@
         <button class="btn btn-primary" ng-click="updateDashboard()">Update Email Settings</button>
       </form>
     </div>
-
-   <div class="well">
-    <h3><i class="fa fa-mobile"></i> Text alert setup</h3>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="well">
+      <h3><i class="fa fa-mobile"></i> Text Alerts</h3>
       <form class="form">
         <div class="form-group">
           <label>Cell number</label>
           <input type="tel" class="form-control" placeholder="1112223333" ng-model="updateTextData">
+        </div>
+        <div class="form-group">
+          <label>Distance threshold <a href=" " title="Will alert if earthquake is within this distance"><i class="fa fa-question-circle"></i></a></label>
+          <div class="input-group">
+            <input placeholder="Distance threshold" class="form-control" ng-model="textDistance">
+            <div class="input-group-addon">miles</div>
+          </div>
+        </div>
+        <div class="form-group"> 
+          <label>Choose magnitude threshold</label>
+          <select class="form-control" ng-model="updateTextMagnitude">
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+           </select>
         </div>
         <div class="form-group">
           <label>Text frequency</label>
@@ -113,15 +161,6 @@
             <option value="28800000">8 Hours</option>
           </select>
         </div>
-        <div class="form-group"> 
-          <label>Choose magnitude threshold</label>
-          <select class="form-control" ng-model="updateTextMagnitude">
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-           </select>
-        </div>
         <div class="form-group">
           <label>
             <input ng-model="textAlertActive" type="checkbox">
@@ -132,8 +171,13 @@
       </form>
     </div>
   </div>
+</div>
 
 
+
+<!-- <pre>{{user}}</pre> -->
+<!-- 
+<div class="row">
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -156,5 +200,6 @@
       </div>
     </div>
   </div>
-</div> 
+</div>  -->
+
 

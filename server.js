@@ -56,7 +56,7 @@ Passport.use(new GoogleStrategy({
 App.get('/auth/google', Passport.authenticate('google', { scope: 'https://www.googleapis.com/auth/plus.login' }));
 
 App.get('/auth/google/callback', Passport.authenticate('google', {
-  failureRedirect: '/auth/failure', successRedirect: '/'
+  failureRedirect: '/auth/failure', successRedirect: '/#/dashboard'
 }));
 
 App.get('/auth/logout', function(req, res){
