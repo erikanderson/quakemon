@@ -1,6 +1,6 @@
 var app = angular.module('quakemon');
 
-app.controller('dashboardCtrl', function($scope, dashboardService, authService){
+app.controller('dashboardCtrl', function($scope, $interval, dashboardService, authService, user){
  
  $scope.updateZipData = $scope.user.zip;
  $scope.latitude = $scope.user.latitude;
@@ -20,14 +20,14 @@ app.controller('dashboardCtrl', function($scope, dashboardService, authService){
  $scope.updateTextMagnitude = $scope.user.textMagnitude;
  $scope.updateTextFrequency = $scope.user.textFrequency;
  $scope.textAlertActive = $scope.user.textAlertActive;
-
+ 
+ console.log('Dashboard control user monitor distance is: ', user.monitorDistance);
 
   var updateUser = function(){
-    console.log('test');
     authService.updateUser()
       .then(function(data){
         $scope.user = data;
-        console.log($scope.user);
+        // console.log('DASHBOARD USER UPDATE: ', $scope.user);
       })
   }
 
@@ -56,57 +56,22 @@ app.controller('dashboardCtrl', function($scope, dashboardService, authService){
       } else if (res.status === 500){
         $scope.successMsg = '';
         $scope.errorMsg = 'There was an error updating user';
-        updateUser();
       } else if (res.status === 200 && res.data.zipError){
         $scope.successMsg = '';
         $scope.errorMsg = 'ZIP code not found in database. Please try again or enter another ZIP that is close to you';
-        updateUser();
       }
     })
   }
 
-  $scope.updateZip = function(){
-    console.log('scope user id', $scope.user._id);
-    dashboardService.updateZip($scope.user._id, $scope.updateZipData)
-      .then(function(res){
-        console.log(res);
-        if (res.status === 200 && !res.data.zipError){
-          console.log('Updated ZIP', res);
-          $scope.zipError = '';
-          $scope.zipSuccess = 'Zip code successfully updated';
-          $scope.updateZipData = '';
-          updateUser();
-        } else if (res.status === 200 && res.data.zipError){
-          console.log(res);
-          $scope.zipSuccess = '';
-          $scope.zipError = res.data.zipError;
-          $scope.updateZipData = '';
-        }
-      })
+  var logger = function(){
+    console.log('Dashboard control user monitor distance is: ', $scope.user.monitorDistance);
   }
 
-  $scope.updateThresholds = function(){
-    dashboardService.updateThresholds($scope.user._id, $scope.emailDistance, $scope.emailMagnitude)
-      .then(function(res){
-        console.log(res);
-        updateUser();
-      })
-  }
+  // $interval(updateUser, 1000);
 
-  $scope.updateEmail = function(){
-    dashboardService.updateEmail($scope.user._id, $scope.updateEmailData, $scope.emailAlertActive, $scope.updateEmailFrequency)
-      .then(function(res){
-        console.log(res);
-        updateUser();
-      })
-  }
-
-  $scope.updateText = function(){
-    dashboardService.updateText($scope.user._id, $scope.updateTextData, $scope.textAlertActive, $scope.updateTextFrequency, $scope.updateTextMagnitude)
-      .then(function(res){
-        console.log(res);
-        updateUser();
-      })
-  }
+  // $interval(logger, 5000);
+  //   setInterval(function(){
+  //    console.log('Dashboard control user monitor distance is: ', $scope.user.monitorDistance);
+  // }, 5000);
 
 })

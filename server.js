@@ -146,7 +146,7 @@ function sendEmailAlerts(){
   })
 }
 
-setInterval(sendEmailAlerts, 20000);
+setInterval(sendEmailAlerts, 30000);
 
   function sendTextAlerts(){
     User.find({}, function(err, users){
@@ -176,7 +176,7 @@ setInterval(sendEmailAlerts, 20000);
     })
   }
 
-setInterval(sendTextAlerts, 10000);
+setInterval(sendTextAlerts, 20000);
 
 Mongoose.connect(Config.database, function(){
   console.log('Connected to MongoDB at: ' + Config.database);

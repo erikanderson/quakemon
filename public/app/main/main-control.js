@@ -1,6 +1,6 @@
 var app = angular.module('quakemon');
 
-app.controller('mainCtrl', function($scope, authService){
+app.controller('mainCtrl', function($scope, $interval, authService){
 
   var updateUser = function(){
     authService.updateUser()
@@ -9,8 +9,8 @@ app.controller('mainCtrl', function($scope, authService){
         //console.log($scope.user);
       })
   }
-
   updateUser();
+  $interval(updateUser, 3000);
 
   $scope.logout = function(){
     authService.logout()

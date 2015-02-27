@@ -8,9 +8,11 @@ app.config(function($stateProvider, $urlRouterProvider){
       controller: 'homeCtrl',
       resolve: {
         user: function(authService){
+          console.log('home resolve for user is firing');
           return authService.updateUser()
         },
         earthquakes: function(homeService, user){
+          console.log('home resolve for earthquakes is firing');
           return homeService.getHourlyData(user);
         }
       }
@@ -21,6 +23,7 @@ app.config(function($stateProvider, $urlRouterProvider){
       controller: 'dashboardCtrl',
       resolve: {
         user: function(authService){
+          console.log('dashboard resolve for user is firing');
           return authService.updateUser()
         }
       }
