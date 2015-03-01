@@ -28,9 +28,36 @@ app.config(function($stateProvider, $urlRouterProvider){
         }
       }
     })
-    .state('about', {
-      url: '/about',
-      templateUrl: '/app/templates/utility/privacy.html'
+    .state('daily', {
+      url:'/daily', 
+        templateUrl: '/app/templates/history/daily.html',
+        controller: 'historyCtrl',
+        resolve: {
+          earthquakesHistory: function(historyService){
+            return historyService.getData('daily');
+          }
+        }
     })
+    .state('weekly', {
+      url:'/weekly', 
+        templateUrl: '/app/templates/history/weekly.html',
+        controller: 'historyCtrl',
+        resolve: {
+          earthquakesHistory: function(historyService){
+            return historyService.getData('weekly');
+          }
+        }
+    })
+    .state('monthly', {
+      url:'/monthly', 
+        templateUrl: '/app/templates/history/monthly.html',
+        controller: 'historyCtrl',
+        resolve: {
+          earthquakesHistory: function(historyService){
+            return historyService.getData('monthly');
+          }
+        }
+    })
+
     $urlRouterProvider.otherwise("/");
 })

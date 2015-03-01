@@ -1,8 +1,20 @@
-<div class="homeWrapper">
-  <h3>USGS Magnitude 1.0+ Earthquakes, Past Hour</h3>
-  <div class="update">Data fetched every 10 seconds. <span class="showTime cssFade" ng-show="updateTime">Last updated at: {{updateTime | date: 'medium'}}</span></div>
+  <div class="row">
+    <div class="col-md-7">
+      <h3 class='tableTitle'>USGS Magnitude 1.0+ Earthquakes, Past Hour</h3>
+    
+      <div class="update">Data fetched every 10 seconds. <span class="showTime cssFade" ng-show="updateTime">Last updated at: {{updateTime | date: 'mediumTime'}}</span></div>
+    </div>
+    <div class="col-md-5">
+      <span class="btn-group timeFrame" role="group" aria-label="...">
+        <a href="/#/"><button type="button" class="btn btn-primary active">Hourly</button></a>
+        <a href="/#/daily"><button type="button" class="btn btn-primary">Daily</button></a>
+        <a href="/#/weekly"><button type="button" class="btn btn-primary">Weekly</button></a>
+        <a href="/#/monthly"><button type="button" class="btn btn-primary">Monthly</button></a>
+      </span>
+    </div>
+</div>
 
-
+<div class="row">
   <table class="table table-striped mainTable">
     <thead>
       <th>Time</th>
@@ -30,7 +42,5 @@
 
   <pre ng-show="user">Current user latitude/longitude: {{user.latitude}}/{{user.longitude}}</pre>
 
-  <div>
-    <p>Data provided by <a href="http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank">USGS</a></p>
-  </div>
 </div>
+

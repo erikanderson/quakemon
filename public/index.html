@@ -26,14 +26,14 @@
    <script src="app/main/app.js"></script>
    <script src="app/main/main-control.js"></script>
    <script src="app/services/auth-service.js"></script>
-   
-   <script src="app/templates/dashboard/dashboard-control.js"></script>
+
    <script src="app/templates/home/home-control.js"></script>
+   <script src="app/templates/dashboard/dashboard-control.js"></script>
+   <script src="app/templates/history/history-control.js"></script>
 
    <script src="app/templates/home/home-service.js"></script>
    <script src="app/templates/dashboard/dashboard-service.js"></script>
-
-
+   <script src="app/templates/history/history-service.js"></script>
 
   </head>
   <body ng-app="quakemon" ng-controller="mainCtrl">
@@ -67,9 +67,18 @@
     <div ui-view></div>
   </div>
 
-    <div class="footer navbar-bottom">
+  <div class="footer navbar-bottom">
     <div class="container">
       <hr>
+      
+      <div class="usgsInfo">
+        <p>Data provided by <a href="http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank">USGS</a></p>
+      </div>
+      <span> | </span>
+      <div class="usgsInfo">
+        <p><a href="http://earthquake.usgs.gov/earthquakes/map/#%7B%22feed%22%3A%2230day_m25%22%2C%22search%22%3Anull%2C%22listFormat%22%3A%22default%22%2C%22sort%22%3A%22newest%22%2C%22basemap%22%3A%22grayscale%22%2C%22autoUpdate%22%3Atrue%2C%22restrictListToMap%22%3Atrue%2C%22timeZone%22%3A%22utc%22%2C%22mapposition%22%3A%5B%5B13.15437605541853%2C-172.6171875%5D%2C%5B69.19379976461904%2C-68.115234375%5D%5D%2C%22overlays%22%3A%7B%22plates%22%3Atrue%2C%22faults%22%3Atrue%2C%22ushazard%22%3Afalse%7D%2C%22viewModes%22%3A%7B%22map%22%3Atrue%2C%22list%22%3Atrue%2C%22settings%22%3Atrue%2C%22help%22%3Afalse%7D%7D" target="_blank">Interactive Map</a></p>
+      </div>
+
       <div class="footerRight">
         <a href="https://twitter.com/share" class="twitter-share-button" 
         data-url="https://quakemon.com" data-via="edawebdesign">Tweet</a>

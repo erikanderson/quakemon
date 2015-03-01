@@ -1,0 +1,24 @@
+  <h1>Last 30 days</h1>
+
+  {{res.data.features.length}}
+
+  <table class="table table-striped mainTable">
+    <thead>
+      <th>Time</th>
+      <th>Magnitude</th>
+      <th>Location</th>
+      <th>Depth</th>
+      <th>Lat/Long</th>
+      <th>Detail</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="earthquake in monthlyEarthquakes" class="my-repeat-animation" ng-class="{warningDistance: (earthquake.distanceToUser < user.monitorDistance)}">
+        <td>{{earthquake.properties.time | date: 'medium'}}</td>
+        <td class="magnitude">{{earthquake.properties.mag}}</td>
+        <td>{{earthquake.properties.place}}</td>
+        <td>{{earthquake.geometry.coordinates[2]}} Miles</td>
+        <td><a href="https://www.google.com/maps/@{{earthquake.geometry.coordinates[1]}},{{earthquake.geometry.coordinates[0]}},3809m/data=!3m1!1e3" target="_blank">{{earthquake.geometry.coordinates[1]}}, {{earthquake.geometry.coordinates[0]}}</a></td>
+        <td><a href={{earthquake.properties.url}} target='_blank'>USGS Detail</a></td>
+      </tr>
+    </tbody>
+  </table>

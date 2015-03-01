@@ -10,7 +10,7 @@ app.service('authService', function($http){
       url: '/auth/me'
     }).then(function(res){
       user = res.data;
-      console.log("AUTH SERVICE DISTANCE: ", user.monitorDistance);
+      //console.log("AUTH SERVICE DISTANCE: ", user.monitorDistance);
       return user;
     })
   }

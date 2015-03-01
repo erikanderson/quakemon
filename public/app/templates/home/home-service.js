@@ -25,11 +25,11 @@ app.service('homeService', function($http, $q, authService){
       var deferred = $q.defer();
       $http({
         method: 'GET',
-        url: '/api/data'
+        url: '/api/data/hourly'
       }).then(function(res){
         console.log('gethourlydata res: ', res.data.features);
         if (res.data.features.length === 0){
-          console.log('no earthquakes');
+          //console.log('no earthquakes');
           res.data.features.message = "No earthquakes recorded in the last hour";
         }
         deferred.resolve(res.data.features);
@@ -41,7 +41,7 @@ app.service('homeService', function($http, $q, authService){
       var deferred = $q.defer();
       $http({
         method: 'GET',
-        url: '/api/data'
+        url: '/api/data/hourly'
       }).then(function(res){
         // console.log('//////// userCalc: ', userCalc);
         // console.log('******* api data: ', res);

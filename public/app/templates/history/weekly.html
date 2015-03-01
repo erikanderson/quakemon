@@ -1,0 +1,41 @@
+<div class="dataWrapper">
+  <h3 class="tableTitle">USGS Magnitude 2.5+ Earthquakes, Past Week</h3>
+
+  <span class="btn-group timeFrame" role="group" aria-label="...">
+    <a href="/#/"><button type="button" class="btn btn-primary">Hourly</button></a>
+    <a href="/#/daily"><button type="button" class="btn btn-primary">Daily</button></a>
+    <a href="/#/weekly"><button type="button" class="btn btn-primary active">Weekly</button></a>
+    <a href="/#/monthly"><button type="button" class="btn btn-primary">Monthly</button></a>
+  </span>
+
+    <div>Total number of M2.5+ earthquakes past 7 days: {{earthquakesHistory.length}}</div>
+    
+    <input placeholder="Filter by location" class="form-control searchBox" type="search" ng-model="search.properties.place">
+
+
+    <table class="table table-striped mainTable">
+    <thead>
+      <th>Time</th>
+      <th><a href="" ng-click="predicate = 'properties.mag'; reverse=!reverse">Magnitude</a></th>
+      <th>Location</th>
+      <th>Depth</th>
+      <th>Lat/Long</th>
+      <th>Detail</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="earthquake in earthquakesHistory | filter:search:strict | orderBy:predicate:reverse">
+        <td>{{earthquake.properties.time | date: 'medium'}}</td>
+        <td class="magnitude">{{earthquake.properties.mag}}</td>
+        <td>{{earthquake.properties.place}}</td>
+        <td>{{earthquake.geometry.coordinates[2]}} Miles</td>
+        <td><a href="https://www.google.com/maps/@{{earthquake.geometry.coordinates[1]}},{{earthquake.geometry.coordinates[0]}},3809m/data=!3m1!1e3" target="_blank">{{earthquake.geometry.coordinates[1]}}, {{earthquake.geometry.coordinates[0]}}</a></td>
+        <td ng-show="user"><span class="distanceUser">{{earthquake.distanceToUser | number}}</span> miles</td>
+        <td><a href={{earthquake.properties.url}} target='_blank'>USGS Detail</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <p>Data provided by <a href="http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank">USGS</a></p>
+  </div>
+</div>
