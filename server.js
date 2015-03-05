@@ -92,7 +92,7 @@ function getHourlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson', function(error, response, body){
     console.log('DATA FETCHED FOR HOUR');
     hourlyData = JSON.parse(body);
-    })
+    });
 }
 getHourlyData();
 setInterval(getHourlyData, 60000);

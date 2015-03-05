@@ -74,6 +74,7 @@ background-color: rgb(51, 51, 51);
 
 .usgsInfo {
   display: inline-block;
+  font-size: 0.75em;
 }
 
 /* Sticky footer styles
@@ -94,5 +95,10 @@ body {
   height: 60px;
 }
 
+
+.footerMiddle {
+  font-size: 0.75em;
+  margin: 0 auto;
+}
 
 
