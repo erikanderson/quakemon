@@ -27,7 +27,7 @@ app.controller('dashboardCtrl', function($scope, $interval, dashboardService, au
     authService.updateUser()
       .then(function(data){
         $scope.user = data;
-        // console.log('DASHBOARD USER UPDATE: ', $scope.user);
+        console.log('DASHBOARD USER UPDATE: ', $scope.user);
       })
   }
 

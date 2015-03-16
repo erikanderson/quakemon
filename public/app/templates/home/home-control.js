@@ -14,6 +14,7 @@ app.controller('homeCtrl', function($scope, $interval, homeService, authService,
         //console.log('Home Control user is: ', user);
       } else {
         //console.log('HOME USER MONITOR DISTANCE: ', user.monitorDistance)
+        $scope.noQuake = "";
         $scope.earthquakes = res;
       }
       $scope.updateTime = Date.now();
