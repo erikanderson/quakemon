@@ -3,7 +3,6 @@
 Live site: https://quakemon.com
 
 ## Zip code import 
-
 ```
 wget http://media.mongodb.org/zips.json?_ga=1.225263507.865733937.1428769828
 
@@ -19,6 +18,9 @@ mongoimport --db quakemon --collection zips zips.json
 
 ## Dependencies
 
-- https://angularjs.org/
-- https://www.mongodb.org/
-- https://nodejs.org/
+* [AngularJS](https://angularjs.org/)
+* [nodeJS](http://nodejs.org/)
+* [expressJS](http://expressjs.com/)
+* [mongoDB](http://www.mongodb.org/)
+* [mongoose](http://mongoosejs.com/)
+* [Bootstrap](http://getbootstrap.com/)

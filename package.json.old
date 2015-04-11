@@ -1,8 +1,8 @@
 {
   "name": "quakemon",
   "version": "1.0.0",
-  "description": "Live site: https://quakemon.com",
-  "main": "config.js",
+  "description": "",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
@@ -18,16 +18,17 @@
   },
   "homepage": "https://github.com/erikanderson/quakemon",
   "dependencies": {
-    "body-parser": "^1.12.2",
-    "express": "^4.12.3",
-    "express-session": "^1.11.1",
+    "body-parser": "^1.12.0",
+    "express": "^4.11.2",
+    "express-session": "^1.10.3",
     "mandrill-api": "^1.0.41",
-    "mongoose": "^4.0.1",
-    "morgan": "^1.5.2",
+    "mongoose": "^3.8.23",
+    "morgan": "^1.5.1",
     "passport": "^0.2.1",
-    "passport-google-oauth": "^0.2.0",
-    "q": "^1.2.0",
-    "request": "^2.55.0",
-    "twilio": "^1.11.1"
+    "passport-google-oauth": "^0.1.5",
+    "prerender-node": "^1.2.1",
+    "q": "^1.1.2",
+    "request": "^2.53.0",
+    "twilio": "^1.11.0"
   }
 }
