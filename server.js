@@ -90,7 +90,8 @@ var hourlyData, dailyData, weeklyData, monthlyData;
 //hourly
 function getHourlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson', function(error, response, body){
-    if (error || (body.length === 0)){
+    console.log(error, response, body);
+    if (error || (body.length === 0) || body){
       console.log('body length is zero: ', body.length);
       console.log('error in hourly: ', error);
       return false;
@@ -110,7 +111,7 @@ App.get('/api/data/hourly', function(req, res){
 //daily
 function getDailyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson', function(error, response, body){
-    if (error || (body.length === 0)){
+    if (error || (body.length === 0) || body){
       console.log('body length is zero: ', body.length);
       console.log('error in daily: ', error);
       return false;
@@ -129,7 +130,7 @@ App.get('/api/data/daily', function(req, res){
 //weekly
 function getWeeklyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson', function(error, response, body){
-    if (error || (body.length === 0)){
+    if (error || (body.length === 0) || body){
       console.log('body length is zero for weekly: ', body.length);
       console.log('error in weekly: ', error);
       return false;
@@ -149,7 +150,7 @@ App.get('/api/data/weekly', function(req, res){
 //monthly
 function getMonthlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson', function(error, response, body){
-    if (error || (body.length === 0)){
+    if (error || (body.length === 0) || body){
       console.log('body length is zero: ', body.length);
       console.log('error in monthly: ', error);
       return false;
@@ -183,6 +184,7 @@ var distanceCalc = function(lat1, lon1, lat2, lon2, unit) {
 }
 
 function sendEmailAlerts(){
+  if(hourlyData){
   User.find({} ,function(err, users){
     var featuresData = hourlyData.features;
     var usersArr = users;
@@ -207,11 +209,13 @@ function sendEmailAlerts(){
       }
     };
   })
+  }
 }
 
 setInterval(sendEmailAlerts, 30000);
 
   function sendTextAlerts(){
+    if(hourlyData){
     User.find({}, function(err, users){
       var featuresData = hourlyData.features;
       var usersArr = users;
@@ -237,6 +241,7 @@ setInterval(sendEmailAlerts, 30000);
         }
       }
     })
+    }
   }
 
 setInterval(sendTextAlerts, 20000);
