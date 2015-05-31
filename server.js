@@ -95,8 +95,10 @@ function getHourlyData(){
         return false;
       }
       console.log('DATA FETCHED FOR HOUR');
-      var parsed = JSON.parse(body);
-      hourlyData = parsed;
+      if (typeof JSON.parse(body) === 'object'){
+        var parsed = JSON.parse(body);
+        hourlyData = parsed;
+      }
     });
 }
 setTimeout(getHourlyData, 2000);
