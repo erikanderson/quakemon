@@ -1,7 +1,7 @@
 var app = angular.module('quakemon');
 
 app.controller('dashboardCtrl', function($scope, $interval, dashboardService, authService, user){
- 
+
  $scope.updateZipData = $scope.user.zip;
  $scope.latitude = $scope.user.latitude;
  $scope.longitude = $scope.user.longitude;
@@ -20,7 +20,7 @@ app.controller('dashboardCtrl', function($scope, $interval, dashboardService, au
  $scope.updateTextMagnitude = $scope.user.textMagnitude;
  $scope.updateTextFrequency = $scope.user.textFrequency;
  $scope.textAlertActive = $scope.user.textAlertActive;
- 
+
  console.log('Dashboard control user monitor distance is: ', user.monitorDistance);
 
   var updateUser = function(){
@@ -33,18 +33,18 @@ app.controller('dashboardCtrl', function($scope, $interval, dashboardService, au
 
   $scope.updateDashboard = function(){
     dashboardService.updateDashboard(
-      $scope.user._id, 
+      $scope.user._id,
       $scope.updateZipData,
       $scope.monitorDistance,
-      $scope.monitorMagnitude, 
-      $scope.emailDistance, 
-      $scope.emailMagnitude, 
-      $scope.updateEmailData, 
-      $scope.emailAlertActive, 
-      $scope.updateEmailFrequency, 
-      $scope.updateTextData, 
-      $scope.textAlertActive, 
-      $scope.updateTextFrequency, 
+      $scope.monitorMagnitude,
+      $scope.emailDistance,
+      $scope.emailMagnitude,
+      $scope.updateEmailData,
+      $scope.emailAlertActive,
+      $scope.updateEmailFrequency,
+      $scope.updateTextData,
+      $scope.textAlertActive,
+      $scope.updateTextFrequency,
       $scope.updateTextMagnitude,
       $scope.textDistance
     ).then(function(res){

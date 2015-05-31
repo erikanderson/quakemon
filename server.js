@@ -90,6 +90,10 @@ var hourlyData, dailyData, weeklyData, monthlyData;
 //hourly
 function getHourlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson', function(error, response, body){
+    if (error){
+      console.log('error in hourly: ', error);
+      return false;
+    }
     console.log('DATA FETCHED FOR HOUR');
     hourlyData = JSON.parse(body);
     });
@@ -104,6 +108,10 @@ App.get('/api/data/hourly', function(req, res){
 //daily
 function getDailyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson', function(error, response, body){
+    if (error){
+      console.log('error in daily: ', error);
+      return false;
+    }
     console.log('DATA FETCHED FOR DAY');
     dailyData = JSON.parse(body);
     })
@@ -118,6 +126,10 @@ App.get('/api/data/daily', function(req, res){
 //weekly
 function getWeeklyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson', function(error, response, body){
+    if (error){
+      console.log('error in weekly: ', error);
+      return false;
+    }
     console.log('DATA FETCHED FOR WEEK');
     weeklyData = JSON.parse(body);
     })
@@ -133,6 +145,10 @@ App.get('/api/data/weekly', function(req, res){
 //monthly
 function getMonthlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson', function(error, response, body){
+    if (error){
+      console.log('error in monthly: ', error);
+      return false;
+    }
     console.log('DATA FETCHED FOR MONTH');
     monthlyData = JSON.parse(body);
     })
@@ -159,7 +175,7 @@ var distanceCalc = function(lat1, lon1, lat2, lon2, unit) {
   if (unit=="K") { dist = dist * 1.609344 }
   if (unit=="N") { dist = dist * 0.8684 }
   return dist
-}  
+}
 
 function sendEmailAlerts(){
   User.find({} ,function(err, users){
@@ -184,7 +200,7 @@ function sendEmailAlerts(){
            }
          }
       }
-    };  
+    };
   })
 }
 
@@ -206,7 +222,7 @@ setInterval(sendEmailAlerts, 30000);
             var magnitude = featuresData[k].properties.mag;
             if (distance < usersArr[i].emailDistance && magnitude > usersArr[i].textMagnitude){
               console.log('text in second if');
-              console.log('**********danger close and text alert is being sent**********');
+              console.log('********* text alert is being sent**********');
               User.update({_id: usersArr[i]._id}, {lastTextAlertSent: Date.now()}, function(err, results){
                 console.log(results);
               })

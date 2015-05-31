@@ -29,7 +29,7 @@ app.config(function($stateProvider, $urlRouterProvider){
       }
     })
     .state('daily', {
-      url:'/daily', 
+      url:'/daily',
         templateUrl: '/app/templates/history/daily.html',
         controller: 'historyCtrl',
         resolve: {
@@ -39,7 +39,7 @@ app.config(function($stateProvider, $urlRouterProvider){
         }
     })
     .state('weekly', {
-      url:'/weekly', 
+      url:'/weekly',
         templateUrl: '/app/templates/history/weekly.html',
         controller: 'historyCtrl',
         resolve: {
@@ -49,7 +49,7 @@ app.config(function($stateProvider, $urlRouterProvider){
         }
     })
     .state('monthly', {
-      url:'/monthly', 
+      url:'/monthly',
         templateUrl: '/app/templates/history/monthly.html',
         controller: 'historyCtrl',
         resolve: {
