@@ -90,7 +90,8 @@ var hourlyData, dailyData, weeklyData, monthlyData;
 //hourly
 function getHourlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson', function(error, response, body){
-      if (error || body.length === 240){
+      console.log('body.length: '. body.length)
+      if (error || body.length == [230-240]){
         return false;
       }
       console.log('DATA FETCHED FOR HOUR');
@@ -108,7 +109,8 @@ App.get('/api/data/hourly', function(req, res){
 //daily
 function getDailyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson', function(error, response, body){
-      if (error || body.length === 240){
+      console.log('body.length: '. body.length)
+      if (error || body.length == [230-240]){
         return false;
       }
       console.log('DATA FETCHED FOR DAY');
@@ -125,7 +127,8 @@ App.get('/api/data/daily', function(req, res){
 //weekly
 function getWeeklyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson', function(error, response, body){
-      if (error || body.length === 240){
+      console.log('body.length: '. body.length)
+      if (error || body.length == [230-240]){
         return false;
       }
       console.log('DATA FETCHED FOR WEEK');
@@ -143,7 +146,8 @@ App.get('/api/data/weekly', function(req, res){
 //monthly
 function getMonthlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson', function(error, response, body){
-      if (error || body.length === 240){
+      console.log('body.length: '. body.length)
+      if (error || body.length == [230-240]){
         return false;
       }
       console.log('DATA FETCHED FOR MONTH');
