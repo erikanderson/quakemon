@@ -90,18 +90,17 @@ var hourlyData, dailyData, weeklyData, monthlyData;
 //hourly
 function getHourlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson', function(error, response, body){
-    console.log(error, response, body);
-    if (error || (body.length === 0) || body){
-      console.log('body length is zero: ', body.length);
-      console.log('error in hourly: ', error);
-      return false;
-    }
-    console.log('DATA FETCHED FOR HOUR');
-    console.log('body.length: ', body.length);
-    hourlyData = JSON.parse(body);
+      var parsed = JSON.parse(body);
+      if (error || typeof parsed !== 'object'){
+        console.log(typeof body);
+        console.log('error in hourly: ', error);
+        return false;
+      }
+      console.log('DATA FETCHED FOR HOUR');
+      hourlyData = parsed;
     });
 }
-getHourlyData();
+setTimeout(getHourlyData, 2000);
 setInterval(getHourlyData, 60000);
 App.get('/api/data/hourly', function(req, res){
     console.log('Client is getting hourly data');
@@ -111,16 +110,17 @@ App.get('/api/data/hourly', function(req, res){
 //daily
 function getDailyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson', function(error, response, body){
-    if (error || (body.length === 0) || body){
-      console.log('body length is zero: ', body.length);
-      console.log('error in daily: ', error);
-      return false;
-    }
-    console.log('DATA FETCHED FOR DAY');
-    dailyData = JSON.parse(body);
+      var parsed = JSON.parse(body);
+      if (error || typeof parsed !== 'object'){
+        console.log(typeof body);
+        console.log('error in hourly: ', error);
+        return false;
+      }
+      console.log('DATA FETCHED FOR DAY');
+      dailyData = parsed;
     })
 }
-getDailyData();
+setTimeout(getDailyData, 4000);
 setInterval(getDailyData, 3600000);
 App.get('/api/data/daily', function(req, res){
     console.log('Client is getting daily data');
@@ -130,16 +130,17 @@ App.get('/api/data/daily', function(req, res){
 //weekly
 function getWeeklyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson', function(error, response, body){
-    if (error || (body.length === 0) || body){
-      console.log('body length is zero for weekly: ', body.length);
-      console.log('error in weekly: ', error);
-      return false;
-    }
-    console.log('DATA FETCHED FOR WEEK');
-    weeklyData = JSON.parse(body);
+      var parsed = JSON.parse(body);
+      if (error || typeof parsed !== 'object'){
+        console.log(typeof body);
+        console.log('error in hourly: ', error);
+        return false;
+      }
+      console.log('DATA FETCHED FOR WEEK');
+      weeklyData = parsed;
     })
 }
-getWeeklyData();
+setTimeout(getWeeklyData, 6000);
 setInterval(getWeeklyData, 700000);
 App.get('/api/data/weekly', function(req, res){
     console.log('Client is getting weekly data');
@@ -150,16 +151,17 @@ App.get('/api/data/weekly', function(req, res){
 //monthly
 function getMonthlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson', function(error, response, body){
-    if (error || (body.length === 0) || body){
-      console.log('body length is zero: ', body.length);
-      console.log('error in monthly: ', error);
-      return false;
-    }
-    console.log('DATA FETCHED FOR MONTH');
-    monthlyData = JSON.parse(body);
+      var parsed = JSON.parse(body);
+      if (error || typeof parsed !== 'object'){
+        console.log(typeof body);
+        console.log('error in hourly: ', error);
+        return false;
+      }
+      console.log('DATA FETCHED FOR MONTH');
+      monthylData = parsed;
     })
 }
-getMonthlyData();
+setTimeout(getMonthlyData, 8000);
 setInterval(getMonthlyData, 900000);
 App.get('/api/data/monthly', function(req, res){
     console.log('Client is getting monthly data');
