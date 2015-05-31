@@ -91,7 +91,7 @@ var hourlyData, dailyData, weeklyData, monthlyData;
 function getHourlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson', function(error, response, body){
       console.log('body.length: ', body.length)
-      if (error || body.length == [230-240]){
+      if (error || body.length == 240){
         return false;
       }
       console.log('DATA FETCHED FOR HOUR');
