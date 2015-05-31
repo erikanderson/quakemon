@@ -90,13 +90,11 @@ var hourlyData, dailyData, weeklyData, monthlyData;
 //hourly
 function getHourlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_hour.geojson', function(error, response, body){
-      var parsed = JSON.parse(body);
-      if (error || typeof parsed !== 'object'){
-        console.log(typeof body);
-        console.log('error in hourly: ', error);
+      if (error || body.length === 240){
         return false;
       }
       console.log('DATA FETCHED FOR HOUR');
+      var parsed = JSON.parse(body);
       hourlyData = parsed;
     });
 }
@@ -110,14 +108,11 @@ App.get('/api/data/hourly', function(req, res){
 //daily
 function getDailyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/1.0_day.geojson', function(error, response, body){
-      var parsed = JSON.parse(body);
-      if (error || typeof parsed !== 'object'){
-        console.log(typeof body);
-        console.log('error in hourly: ', error);
+      if (error || body.length === 240){
         return false;
       }
       console.log('DATA FETCHED FOR DAY');
-      dailyData = parsed;
+      dailyData = JSON.parse(body);
     })
 }
 setTimeout(getDailyData, 4000);
@@ -130,14 +125,11 @@ App.get('/api/data/daily', function(req, res){
 //weekly
 function getWeeklyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson', function(error, response, body){
-      var parsed = JSON.parse(body);
-      if (error || typeof parsed !== 'object'){
-        console.log(typeof body);
-        console.log('error in hourly: ', error);
+      if (error || body.length === 240){
         return false;
       }
       console.log('DATA FETCHED FOR WEEK');
-      weeklyData = parsed;
+      weeklyData = JSON.parse(body);
     })
 }
 setTimeout(getWeeklyData, 6000);
@@ -151,14 +143,11 @@ App.get('/api/data/weekly', function(req, res){
 //monthly
 function getMonthlyData(){
     Request('http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_month.geojson', function(error, response, body){
-      var parsed = JSON.parse(body);
-      if (error || typeof parsed !== 'object'){
-        console.log(typeof body);
-        console.log('error in hourly: ', error);
+      if (error || body.length === 240){
         return false;
       }
       console.log('DATA FETCHED FOR MONTH');
-      monthylData = parsed;
+      monthylData = JSON.parse(body);
     })
 }
 setTimeout(getMonthlyData, 8000);
