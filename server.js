@@ -155,7 +155,7 @@ function getMonthlyData(){
         return false;
       }
       console.log('DATA FETCHED FOR MONTH');
-      monthylData = JSON.parse(body);
+      monthlyData = JSON.parse(body);
     })
 }
 setTimeout(getMonthlyData, 8000);
